@@ -17,7 +17,7 @@ You can install the extension using the pre-built version or build it from sourc
 
 1. **Download the Latest Release**
 
-   - Navigate to the [Releases](https://github.com/yourusername/ai-privacy-policy-analyzer/releases) page on GitHub.
+   - Navigate to the [Releases](https://github.com/zahidaz/ai-privacy-policy-analyzer/releases) page on GitHub.
    - Download the `ai-privacy-policy-analyzer.zip` file from the latest release.
 
 2. **Extract the Files**
@@ -43,7 +43,8 @@ You can install the extension using the pre-built version or build it from sourc
 1. **Clone or Download the Repository**
 
    ```bash
-   git clone https://github.com/yourusername/ai-privacy-policy-analyzer.git
+   git clone https://github.com/zahidaz/ai-privacy-policy-analyzer.git
+   # git@github.com:zahidaz/ai-privacy-policy-analyzer.git  
    ```
 
 2. **Install Dependencies**
