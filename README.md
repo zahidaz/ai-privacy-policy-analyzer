@@ -1,4 +1,4 @@
-# AI Privacy Policy Analyzer - Browser (Chrome) Extension
+# AI Privacy Policy Analyzer - Chrome Extension
 
 **AI Privacy Policy Analyzer** is a Chrome extension powered by **WebLLM** that helps you understand website privacy policies. It automatically extracts privacy policies from any website and provides an AI-generated analysis to highlight key points, making it easier to comprehend complex legal language.
 
