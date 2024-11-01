@@ -1,0 +1,50 @@
+# macOS related files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# macOS folder attributes
+Icon
+._*
+
+# npm related files
+node_modules/
+npm-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+.parcel-cache/
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Optional npm cache directory
+.npm
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Editor and IDE specific files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Generated build files
+dist/
+build/
+coverage/
+
+# Temporary files
+tmp/
+temp/
+
