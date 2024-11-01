@@ -55,10 +55,13 @@ const parseHTMLContent = (html: string) => {
 
 const sendPrivacyPolicyToBackgroundWorker = async () => {
   const privacyUrl = collectUrlsAndFindPrivacyLink();
-  if (!privacyUrl) throw new Error("No privacy policy URL found.");
-
   const html = await fetchHtmlContent(privacyUrl);
-  if (!html) throw new Error("Failed to fetch privacy policy page.");
+
+  if (!html) {
+    console.error("No privacy policy found.");
+    chrome.runtime.sendMessage({ action: 'privacyPolicyReady', privacyPolicy: '' });
+    return;
+  }
 
   const text = parseHTMLContent(html);
   chrome.runtime.sendMessage({ action: 'privacyPolicyReady', privacyPolicy: text });

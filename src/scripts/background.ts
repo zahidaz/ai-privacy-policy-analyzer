@@ -49,7 +49,18 @@ chrome.runtime.onMessage.addListener(
 
         if (message.action === 'privacyPolicyReady') {
             const { privacyPolicy } = message;
-            if (!privacyPolicy) return sendResponse({ error: "Privacy policy text is missing." });
+            
+            // if privacy policy is empty, 
+            if (!privacyPolicy || privacyPolicy.trim() === "") {
+                analyses[tabId] = { action: 'privacyAnalysis', analysis: "No privacy policy found.", isComplete: true };
+                if (popupPorts[tabId]) {
+                    // Send the initial analysis to the popup
+                    popupPorts[tabId].postMessage(analyses[tabId]);
+                }
+                sendResponse({ success: true });
+                return true; // Indicates asynchronous response
+            }
+
             try {
                 analyses[tabId] = { action: 'privacyAnalysis', analysis: "", isComplete: false };
                 if (popupPorts[tabId]) {
@@ -91,27 +102,28 @@ chrome.runtime.onConnect.addListener(function(port) {
 });
 
 async function handlePrivacyPolicy(privacyPolicy: string, tabId: number): Promise<void> {
-    console.log("Starting analysis of the privacy policy");
+    console.log(`Starting analysis of the privacy policy for tab ${tabId}`);
 
     try {
+        // Start the analysis for the specific tab
         for await (const incrementalResponse of ai.chatStream(privacyPolicy)) {
+            // Update the analysis result for this tab
             analyses[tabId].analysis = incrementalResponse;
             if (popupPorts[tabId]) {
-                // Send incremental updates to the popup
+                // Send incremental updates to the popup for this tab
                 popupPorts[tabId].postMessage(analyses[tabId]);
             }
         }
         analyses[tabId].isComplete = true;
         if (popupPorts[tabId]) {
-            // Notify the popup that analysis is complete
+            // Notify the popup that analysis is complete for this tab
             popupPorts[tabId].postMessage(analyses[tabId]);
         }
-
     } catch (error: any) {
-        console.error("Error:", error);
+        console.error(`Error processing tab ${tabId}:`, error);
         analyses[tabId].error = error.message;
         if (popupPorts[tabId]) {
-            // Send the error to the popup
+            // Send the error to the popup for this tab
             popupPorts[tabId].postMessage(analyses[tabId]);
         }
     }
